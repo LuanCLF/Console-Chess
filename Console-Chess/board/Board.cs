@@ -17,5 +17,11 @@
         {
             return _boardPieces[lines, columns];
         }
+
+        public void PutPiece(Piece piece, Position position)
+        {
+            _boardPieces[position.Line, position.Column] = piece;
+            piece.ChangePosition(position);
+        }
     }
 }
