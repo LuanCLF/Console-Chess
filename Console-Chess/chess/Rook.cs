@@ -1,5 +1,4 @@
 ﻿using board;
-using board.Enum;
 
 namespace chess
 {

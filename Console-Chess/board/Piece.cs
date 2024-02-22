@@ -1,5 +1,4 @@
-﻿using board.Enum;
-using board;
+﻿using board;
 
 namespace board
 {
