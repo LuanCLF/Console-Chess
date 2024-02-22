@@ -1,6 +1,4 @@
-﻿using System.Data.Common;
-
-namespace tabuleiro
+﻿namespace board
 {
     public class Position
     {
