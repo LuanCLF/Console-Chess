@@ -1,6 +1,4 @@
-﻿using board;
-
-namespace board
+﻿namespace board
 {
     public class Piece
     {
