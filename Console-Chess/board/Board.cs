@@ -2,7 +2,7 @@
 {
     public class Board
     {
-        private Piece[,] _boardPieces;
+        private Piece?[,] _boardPieces;
         public int Lines { get; private set; }
         public int Columns { get; private set; }
 
@@ -13,12 +13,12 @@
             _boardPieces = new Piece[lines, columns];
         }
 
-        public Piece Piece(int lines, int columns)
+        public Piece? Piece(int lines, int columns)
         {
             return _boardPieces[lines, columns];
         }
 
-        public Piece Piece(Position position)
+        public Piece? Piece(Position position)
         {
             return _boardPieces[position.Line, position.Column];
         }
@@ -30,12 +30,25 @@
             return Piece(position) != null;
         }
 
-        public void PutPiece(Piece piece, Position position)
+        public void PlacePiece(Piece piece, Position position)
         {
             if (PieceExist(position)) throw new BoardException("There is already a piece in this position!");
 
             _boardPieces[position.Line, position.Column] = piece;
             piece.ChangePosition(position);
+        }
+
+        public Piece? RemovePiece(Position position)
+        {
+            Piece? aux = Piece(position);
+
+            if (aux == null) return null;
+
+            aux.ChangePosition();
+
+            _boardPieces[position.Line, position.Column] = null;
+
+            return aux;
         }
 
         public bool ValidPosition(Position position)

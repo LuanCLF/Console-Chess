@@ -1,4 +1,5 @@
 ﻿using board;
+using chess;
 
 namespace Console_Chess
 {
@@ -35,6 +36,15 @@ namespace Console_Chess
             {
                 PrintConsoleColorDarkRed($"{piece} ");
             }
+        }
+
+        public static ChessPosition ReadChessPosition()
+        {
+            string position = Console.ReadLine()!;
+            char column = position[0];
+            int line = int.Parse(position[1] + "");
+
+            return new ChessPosition(line, column);
         }
 
         public static void PrintConsoleColorDarkRed(string message)

@@ -16,9 +16,19 @@
             NumberOfMovements = 0;
         }
 
+        public void ChangePosition()
+        {
+            Position = null;
+        }
+
         public void ChangePosition(Position position)
         {
             Position = position;
+        }
+
+        public void IncreaseNumberOfMovements()
+        {
+            NumberOfMovements++;
         }
     }
 }
