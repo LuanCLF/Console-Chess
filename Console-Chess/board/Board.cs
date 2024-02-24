@@ -2,7 +2,7 @@
 {
     public class Board
     {
-        private Piece?[,] _boardPieces;
+        private readonly Piece?[,] _boardPieces;
         public int Lines { get; private set; }
         public int Columns { get; private set; }
 
@@ -20,14 +20,15 @@
 
         public Piece? Piece(Position position)
         {
-            return _boardPieces[position.Line, position.Column];
+            Piece? piece = _boardPieces[position.Line, position.Column];
+            return piece;
         }
 
         public bool PieceExist(Position position)
         {
             ValidatePosition(position);
 
-            return Piece(position) != null;
+            return _boardPieces[position.Line, position.Column] != null;
         }
 
         public void PlacePiece(Piece piece, Position position)
@@ -41,7 +42,6 @@
         public Piece? RemovePiece(Position position)
         {
             Piece? aux = Piece(position);
-
             if (aux == null) return null;
 
             aux.ChangePosition();

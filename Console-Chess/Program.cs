@@ -18,8 +18,16 @@ namespace Console_Chess
                     Screen.PrintBoard(chessMatch.Board);
 
                     Console.WriteLine();
+
                     Console.Write("Origin: ");
                     Position origin = Screen.ReadChessPosition().ToPosition();
+                    Piece sourcePiece = chessMatch.Board.Piece(origin) ?? throw new BoardException("There is no piece at that position!");
+                    bool[,] possibleMoves = sourcePiece.PossibleMoves();
+
+                    Console.Clear();
+                    Screen.PrintBoard(chessMatch.Board, possibleMoves);
+                    Console.WriteLine();
+
                     Console.Write("Destiny: ");
                     Position destiny = Screen.ReadChessPosition().ToPosition();
 
