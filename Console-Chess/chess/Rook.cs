@@ -2,12 +2,8 @@
 
 namespace chess
 {
-    public class Rook : Piece
+    public class Rook(Board board, Color color) : Piece(board, color)
     {
-        public Rook(Board board, Color color) : base(board, color)
-        {
-        }
-
         private bool CanMove(Position position)
         {
             Piece? piece = Board.Piece(position);

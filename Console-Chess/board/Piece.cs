@@ -1,20 +1,11 @@
 ﻿namespace board
 {
-    public abstract class Piece
+    public abstract class Piece(Board board, Color color)
     {
-        public Board Board { get; protected set; }
-        public int NumberOfMovements { get; protected set; }
-        public Position? Position { get; private set; }
-        public Color Color { get; private set; }
-
-        public Piece(Board board, Color color)
-        {
-            Board = board;
-            Color = color;
-
-            Position = null;
-            NumberOfMovements = 0;
-        }
+        public Board Board { get; protected set; } = board;
+        public int NumberOfMovements { get; protected set; } = 0;
+        public Position? Position { get; private set; } = null;
+        public Color Color { get; private set; } = color;
 
         public void ChangePosition()
         {
@@ -29,6 +20,11 @@
         public void IncreaseNumberOfMovements()
         {
             NumberOfMovements++;
+        }
+
+        public void DecreaseNumberOfMovements()
+        {
+            NumberOfMovements--;
         }
 
         public bool ExistPossibleMoves()

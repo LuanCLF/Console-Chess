@@ -24,6 +24,9 @@ namespace Console_Chess
             if (chessMatch.CurrentPlayer == Color.White) PrintConsoleColorOriginal($"{chessMatch.CurrentPlayer}");
             else PrintConsoleColorDarkRed($"{chessMatch.CurrentPlayer}");
 
+            Console.WriteLine();
+            if (chessMatch.Check) PrintConsoleColorGreen("CHECK");
+
             PrintConsoleColorDarkMagenta();
 
             Console.WriteLine();
