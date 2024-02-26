@@ -31,6 +31,21 @@
             NumberOfMovements++;
         }
 
+        public bool ExistPossibleMoves()
+        {
+            bool[,] possibleMoves = PossibleMoves();
+
+            for (int i = 0; i < Board.Lines; i++)
+            {
+                for (int j = 0; j < Board.Columns; j++)
+                {
+                    if (possibleMoves[i, j]) return true;
+                }
+            }
+
+            return false;
+        }
+
         public abstract bool[,] PossibleMoves();
     }
 }
