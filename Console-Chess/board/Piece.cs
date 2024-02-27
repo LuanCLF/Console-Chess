@@ -42,6 +42,11 @@
             return false;
         }
 
+        public bool PossibleMove(Position position)
+        {
+            return PossibleMoves()[position.Line, position.Column];
+        }
+
         public abstract bool[,] PossibleMoves();
     }
 }

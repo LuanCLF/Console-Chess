@@ -41,6 +41,7 @@ namespace chess
 
             if (Position != null)
             {
+
                 // North
                 position.DefineValues(Position.Line - 1, Position.Column);
                 while (IncreasePossibleMoves(possibleMoves, position))

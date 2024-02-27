@@ -27,7 +27,7 @@ namespace chess
             PlacePieces();
         }
 
-        public Piece? ExecuteMove(Position origin, Position destiny)
+        public Piece? ExecuteMove(Position? origin, Position destiny)
         {
             Piece? piece = Board.RemovePiece(origin);
             piece?.IncreaseNumberOfMovements();
@@ -40,7 +40,7 @@ namespace chess
             return capturedPiece;
         }
 
-        private void UndoMove(Position origin, Position destiny, Piece? capturedPiece)
+        private void UndoMove(Position? origin, Position destiny, Piece? capturedPiece)
         {
             Piece pieceAtDestiny = Board.RemovePiece(destiny)!;
             pieceAtDestiny.DecreaseNumberOfMovements();
@@ -51,7 +51,7 @@ namespace chess
                 _captured.Remove(capturedPiece);
             }
 
-            Board.PlacePiece(pieceAtDestiny, origin);
+            if (origin != null) Board.PlacePiece(pieceAtDestiny, origin);
         }
 
         public void MakeMove(Position origin, Position destiny)
@@ -68,8 +68,12 @@ namespace chess
             if (IsInCheck(Opponent(CurrentPlayer))) Check = true;
             else Check = false;
 
-            Turn++;
-            ChangePlayer();
+            if (TestCheckMate(Opponent(CurrentPlayer))) GameOver = true;
+            else
+            {
+                Turn++;
+                ChangePlayer();
+            }
         }
 
         public void ValidateOriginPosition(Position position)
@@ -79,6 +83,13 @@ namespace chess
             if (chosenPiece.Color != CurrentPlayer) throw new BoardException("The chosen piece is not yours!");
 
             if (!chosenPiece.ExistPossibleMoves()) throw new BoardException("There are no possible moves for the chosen piece!");
+        }
+
+        public void ValidateDestinionPosition(Position origin, Position destiny)
+        {
+            Piece? piece = Board.Piece(origin);
+
+            if (piece != null && !piece.PossibleMove(destiny)) throw new BoardException("Invalid destination position");
         }
 
         public void ChangePlayer()
@@ -141,7 +152,40 @@ namespace chess
             return false;
         }
 
-        public void PlaceNewPiece(Piece piece, int line, char column)
+        public bool TestCheckMate(Color color)
+        {
+            if (!IsInCheck(color)) return false;
+
+            foreach (Piece piece in PiecesInPlay(color))
+            {
+                bool[,] matrix = piece.PossibleMoves();
+
+                for (int i = 0; i < Board.Lines; i++)
+                {
+                    for (int j = 0; j < Board.Columns; j++)
+                    {
+                        if (matrix[i, j])
+                        {
+                            Position destiny = new(i, j);
+
+                            Position? origin = piece.Position;
+
+                            Piece? capturedPiece = ExecuteMove(origin, destiny);
+
+                            bool testCheck = IsInCheck(color);
+
+                            UndoMove(origin, destiny, capturedPiece);
+
+                            if (!testCheck) return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        private void PlaceNewPiece(Piece piece, int line, char column)
         {
             Board.PlacePiece(piece, new ChessPosition(line, column).ToPosition());
             _pieces.Add(piece);

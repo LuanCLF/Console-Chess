@@ -20,12 +20,25 @@ namespace Console_Chess
 
             PrintConsoleColorDarkMagenta();
 
-            Console.Write($"Waiting for move: ");
-            if (chessMatch.CurrentPlayer == Color.White) PrintConsoleColorOriginal($"{chessMatch.CurrentPlayer}");
-            else PrintConsoleColorDarkRed($"{chessMatch.CurrentPlayer}");
+            if (!chessMatch.GameOver)
+            {
+                Console.Write($"Waiting for move: ");
+                if (chessMatch.CurrentPlayer == Color.White) PrintConsoleColorOriginal($"{chessMatch.CurrentPlayer}");
+                else PrintConsoleColorDarkRed($"{chessMatch.CurrentPlayer}");
 
-            Console.WriteLine();
-            if (chessMatch.Check) PrintConsoleColorGreen("CHECK");
+                Console.WriteLine();
+                if (chessMatch.Check) PrintConsoleColorGreen("CHECK");
+            }
+            else
+            {
+                PrintConsoleColorGreen("CHECKMATE");
+
+                Console.WriteLine();
+
+                PrintConsoleColorDarkMagenta("Winner: ");
+                if (chessMatch.CurrentPlayer == Color.White) PrintConsoleColorOriginal($"{chessMatch.CurrentPlayer}");
+                else PrintConsoleColorDarkRed($"{chessMatch.CurrentPlayer}");
+            }
 
             PrintConsoleColorDarkMagenta();
 
@@ -133,6 +146,13 @@ namespace Console_Chess
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
         }
 
+        public static void PrintConsoleColorDarkMagenta(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.Write(message);
+            ResetConsoleColor();
+        }
+
         public static void PrintConsoleColorGreen()
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -141,13 +161,6 @@ namespace Console_Chess
         public static void PrintConsoleColorGreen(string message)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(message);
-            ResetConsoleColor();
-        }
-
-        public static void PrintConsoleColorDarkMagenta(string message)
-        {
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.Write(message);
             ResetConsoleColor();
         }

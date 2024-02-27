@@ -30,6 +30,7 @@ namespace Console_Chess
 
                         Console.Write("Destiny: ");
                         Position destiny = Screen.ReadChessPosition().ToPosition();
+                        chessMatch.ValidateDestinionPosition(origin, destiny);
 
                         chessMatch.MakeMove(origin, destiny);
                         Console.Clear();
@@ -39,7 +40,15 @@ namespace Console_Chess
                         Console.WriteLine(e.Message);
                         Console.ReadLine();
                     }
+                    catch (IndexOutOfRangeException)
+                    {
+                        Console.WriteLine("The position is out of bounds of the board!");
+                        Console.ReadLine();
+                    }
                 }
+
+                Console.Clear();
+                Screen.PrintMatch(chessMatch);
             }
             catch (BoardException e) { Console.WriteLine(e.Message); }
             catch (Exception e) { Console.WriteLine(e.Message); }

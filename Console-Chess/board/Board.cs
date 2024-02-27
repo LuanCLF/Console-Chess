@@ -1,17 +1,10 @@
 ﻿namespace board
 {
-    public class Board
+    public class Board(int lines, int columns)
     {
-        private readonly Piece?[,] _boardPieces;
-        public int Lines { get; private set; }
-        public int Columns { get; private set; }
-
-        public Board(int lines, int columns)
-        {
-            Lines = lines;
-            Columns = columns;
-            _boardPieces = new Piece[lines, columns];
-        }
+        private readonly Piece?[,] _boardPieces = new Piece[lines, columns];
+        public int Lines { get; private set; } = lines;
+        public int Columns { get; private set; } = columns;
 
         public Piece? Piece(int lines, int columns)
         {
@@ -39,14 +32,16 @@
             piece.ChangePosition(position);
         }
 
-        public Piece? RemovePiece(Position position)
+        public Piece? RemovePiece(Position? position)
         {
-            Piece? aux = Piece(position);
+            Piece? aux = null;
+
+            if (position != null) aux = Piece(position);
             if (aux == null) return null;
 
             aux.ChangePosition();
 
-            _boardPieces[position.Line, position.Column] = null;
+            if (position != null) _boardPieces[position.Line, position.Column] = null;
 
             return aux;
         }
