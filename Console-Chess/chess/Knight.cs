@@ -2,7 +2,7 @@
 
 namespace chess
 {
-    public class Queen(Board board, Color color) : Piece(board, color)
+    public class Knight(Board board, Color color) : Piece(board, color)
     {
         private bool CanMove(Position position)
         {
@@ -112,7 +112,7 @@ namespace chess
 
         public override string ToString()
         {
-            return "D";
+            return "K!";
         }
     }
 }

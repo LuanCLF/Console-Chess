@@ -1,5 +1,4 @@
 ﻿using board;
-using Console_Chess.chess;
 
 namespace chess
 {
@@ -195,12 +194,12 @@ namespace chess
         private void PlacePieces()
         {
             PlaceNewPiece(new Rook(Board, Color.White), 2, 'f');
-            PlaceNewPiece(new Bishop(Board, Color.White), 4, 'd');
+            PlaceNewPiece(new Queen(Board, Color.White), 4, 'd');
             PlaceNewPiece(new Rook(Board, Color.White), 2, 'a');
             PlaceNewPiece(new King(Board, Color.White), 1, 'a');
             PlaceNewPiece(new Rook(Board, Color.Black), 7, 'f');
             PlaceNewPiece(new Rook(Board, Color.Black), 2, 'h');
-            PlaceNewPiece(new King(Board, Color.Black), 5, 'e');
+            PlaceNewPiece(new King(Board, Color.Black), 8, 'f');
         }
     }
 }
