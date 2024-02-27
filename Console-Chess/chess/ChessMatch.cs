@@ -1,4 +1,5 @@
 ﻿using board;
+using Console_Chess.chess;
 
 namespace chess
 {
@@ -21,9 +22,9 @@ namespace chess
             Turn = 1;
             Board = new Board(8, 8);
             GameOver = false;
+            Check = false;
             _pieces = new HashSet<Piece>();
             _captured = new HashSet<Piece>();
-            Check = false;
             PlacePieces();
         }
 
@@ -194,6 +195,7 @@ namespace chess
         private void PlacePieces()
         {
             PlaceNewPiece(new Rook(Board, Color.White), 2, 'f');
+            PlaceNewPiece(new Bishop(Board, Color.White), 4, 'd');
             PlaceNewPiece(new Rook(Board, Color.White), 2, 'a');
             PlaceNewPiece(new King(Board, Color.White), 1, 'a');
             PlaceNewPiece(new Rook(Board, Color.Black), 7, 'f');
