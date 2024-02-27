@@ -194,7 +194,8 @@ namespace chess
         private void PlacePieces()
         {
             PlaceNewPiece(new Rook(Board, Color.White), 2, 'f');
-            PlaceNewPiece(new Queen(Board, Color.White), 4, 'd');
+            PlaceNewPiece(new Queen(Board, Color.White), 1, 'b');
+            PlaceNewPiece(new Knight(Board, Color.White), 4, 'd');
             PlaceNewPiece(new Rook(Board, Color.White), 2, 'a');
             PlaceNewPiece(new King(Board, Color.White), 1, 'a');
             PlaceNewPiece(new Rook(Board, Color.Black), 7, 'f');

@@ -22,17 +22,6 @@ namespace chess
             return false;
         }
 
-        private bool StopPossibleMove(Position position)
-        {
-            Piece? piece = Board.Piece(position);
-
-            if (piece != null && piece.Color != Color)
-            {
-                return true;
-            }
-            return false;
-        }
-
         public override bool[,] PossibleMoves()
         {
             bool[,] possibleMoves = new bool[Board.Lines, Board.Columns];
@@ -42,69 +31,37 @@ namespace chess
             if (Position != null)
 
             {
-                // North
-                position.DefineValues(Position.Line - 1, Position.Column);
-                while (IncreasePossibleMoves(possibleMoves, position))
-                {
-                    if (StopPossibleMove(position)) break;
-                    position.DefineValues(position.Line - 1, position.Column);
-                }
+                // North && West
+                position.DefineValues(Position.Line - 2, Position.Column - 1);
+                IncreasePossibleMoves(possibleMoves, position);
 
-                // Northeast
-                position.DefineValues(Position.Line - 1, Position.Column + 1);
-                while (IncreasePossibleMoves(possibleMoves, position))
-                {
-                    if (StopPossibleMove(position)) break;
-                    position.DefineValues(position.Line - 1, position.Column + 1);
-                }
+                // North && East
+                position.DefineValues(Position.Line - 2, Position.Column + 1);
+                IncreasePossibleMoves(possibleMoves, position);
 
-                // East
-                position.DefineValues(Position.Line, Position.Column + 1);
-                while (IncreasePossibleMoves(possibleMoves, position))
-                {
-                    if (StopPossibleMove(position)) break;
-                    position.DefineValues(position.Line, position.Column + 1);
-                }
+                // East && North
+                position.DefineValues(Position.Line - 1, Position.Column + 2);
+                IncreasePossibleMoves(possibleMoves, position);
 
-                // Southeast
-                position.DefineValues(Position.Line + 1, Position.Column + 1);
-                while (IncreasePossibleMoves(possibleMoves, position))
-                {
-                    if (StopPossibleMove(position)) break;
-                    position.DefineValues(position.Line + 1, position.Column + 1);
-                }
+                // East && South
+                position.DefineValues(Position.Line + 1, Position.Column + 2);
+                IncreasePossibleMoves(possibleMoves, position);
 
-                // South
-                position.DefineValues(Position.Line + 1, Position.Column);
-                while (IncreasePossibleMoves(possibleMoves, position))
-                {
-                    if (StopPossibleMove(position)) break;
-                    position.DefineValues(position.Line + 1, position.Column);
-                }
+                // South && East
+                position.DefineValues(Position.Line + 2, Position.Column + 1);
+                IncreasePossibleMoves(possibleMoves, position);
 
-                //Southwest
-                position.DefineValues(Position.Line + 1, Position.Column - 1);
-                while (IncreasePossibleMoves(possibleMoves, position))
-                {
-                    if (StopPossibleMove(position)) break;
-                    position.DefineValues(position.Line + 1, position.Column - 1);
-                }
+                // South && West
+                position.DefineValues(Position.Line + 2, Position.Column - 1);
+                IncreasePossibleMoves(possibleMoves, position);
 
-                // West
-                position.DefineValues(Position.Line, Position.Column - 1);
-                while (IncreasePossibleMoves(possibleMoves, position))
-                {
-                    if (StopPossibleMove(position)) break;
-                    position.DefineValues(position.Line, position.Column - 1);
-                }
+                // West && South
+                position.DefineValues(Position.Line + 1, Position.Column - 2);
+                IncreasePossibleMoves(possibleMoves, position);
 
-                // Northwest
-                position.DefineValues(Position.Line - 1, Position.Column - 1);
-                while (IncreasePossibleMoves(possibleMoves, position))
-                {
-                    if (StopPossibleMove(position)) break;
-                    position.DefineValues(position.Line - 1, position.Column - 1);
-                }
+                // West && North
+                position.DefineValues(Position.Line - 1, Position.Column - 2);
+                IncreasePossibleMoves(possibleMoves, position);
             }
 
             return possibleMoves;
@@ -112,7 +69,7 @@ namespace chess
 
         public override string ToString()
         {
-            return "K!";
+            return "C";
         }
     }
 }
